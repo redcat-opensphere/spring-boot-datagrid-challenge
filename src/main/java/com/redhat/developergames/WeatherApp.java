@@ -28,6 +28,9 @@ public class WeatherApp {
 	@Autowired
 	WeatherRepository weatherRepository;
 
+	@Autowired
+	HttpSession session;
+
 	@GetMapping("/")
 	public String index() {
 		return "Greetings from Spring Boot with Data Grid!";
@@ -35,7 +38,7 @@ public class WeatherApp {
 
 	@ApiOperation("getByLocation")
 	@GetMapping("/weather/{location}")
-	public Object getByLocation(@PathVariable String location, HttpSession session) {
+	public Object getByLocation(@PathVariable String location) {
 		Weather weather = weatherRepository.getByLocation(location);
 		if (weather == null) {
 			return String.format("Weather for location %s not found", location);
@@ -47,7 +50,7 @@ public class WeatherApp {
 
 	@ApiOperation("latestLocation")
 	@GetMapping("/latest")
-	public String latestLocation(HttpSession session) {
+	public String latestLocation() {
 
 		String latest = (String) session.getAttribute("latest");
 

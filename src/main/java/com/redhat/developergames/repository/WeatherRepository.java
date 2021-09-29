@@ -1,13 +1,15 @@
 package com.redhat.developergames.repository;
 
-import com.redhat.developergames.model.Weather;
-import com.redhat.developergames.model.WeatherCondition;
-import org.springframework.stereotype.Component;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Component;
+
+import com.redhat.developergames.model.Weather;
+import com.redhat.developergames.model.WeatherCondition;
 
 @Component
 public class WeatherRepository {
@@ -25,6 +27,7 @@ public class WeatherRepository {
 
    private Random random = new Random();
 
+	@Cacheable(cacheNames = "weather", unless = "#result == null")
    public Weather getByLocation(String location) {
       return fetchWeather(location);
    }

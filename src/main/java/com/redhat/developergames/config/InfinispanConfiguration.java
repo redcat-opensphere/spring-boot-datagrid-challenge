@@ -3,6 +3,7 @@ package com.redhat.developergames.config;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.infinispan.commons.marshall.ProtoStreamMarshaller;
 import org.infinispan.spring.starter.remote.InfinispanRemoteCacheCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,11 +23,11 @@ public class InfinispanConfiguration {
          // Configure the sessions cache to be created if it does not exist in the first call
          URI sessionsCacheConfigUri = cacheConfigURI("sessionsCache.xml");
 
-         b.remoteCache("weather")
-                 .configurationURI(weatherCacheConfigUri);
+			b.remoteCache("weather").configurationURI(weatherCacheConfigUri);
          b.remoteCache("sessions")
                  .configurationURI(sessionsCacheConfigUri);
-
+			// Use protostream marshaller to serialize the sessions with Protobuf
+			b.remoteCache("sessions").marshaller(ProtoStreamMarshaller.class);
       };
    }
 
