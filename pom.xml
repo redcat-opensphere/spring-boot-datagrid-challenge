@@ -18,6 +18,7 @@
 		<version.infinispan>12.1.7.Final</version.infinispan>
 		<version.protostream>4.4.1.Final</version.protostream>
 		<version.spring.session>2.4.2</version.spring.session>
+		<swagger.version>2.9.2</swagger.version>		
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -48,6 +49,13 @@
 			<artifactId>infinispan-spring-boot-starter-remote</artifactId>
 			<version>${version.infinispan}</version>
 		</dependency>
+
+<!-- To test the API easily via swagger-ui -->
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-boot-starter</artifactId>
+        <version>3.0.0</version>
+    </dependency>	
 
 	</dependencies>
 
